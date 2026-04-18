@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>$EVILTUNG — Evil Tung on Solana</title>
+<meta name="description" content="Tung Tung went to hell and came back EVIL. $EVILTUNG on Solana. The dark side of brainrot."/>
+<meta property="og:title" content="$EVILTUNG — Evil Tung on Solana"/>
+<meta property="og:description" content="Tung went to hell. He came back with a trident and zero chill."/>
+<meta property="og:image" content="evil_tung.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Bangers&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   $EVILTUNG WEBSITE — EDIT GUIDE
+   1. Contract address: find PASTE_CA_HERE — replace with your real CA
+   2. pump.fun link: find "https://pump.fun" — replace with your coin URL
+   3. Mascot image: keep evil_tung.png in the same folder as this file
+   ============================================================ */
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#cc1111;
+  --dark-red:#8b0000;
+  --orange:#ff6600;
+  --black:#0a0000;
+  --dark:#110000;
+  --card:#1a0000;
+  --border:#3d0000;
+  --text:#f0ddd0;
+  --muted:#9a7060;
+  --fire:#ff4400;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+/* ── FIRE PARTICLES BG ── */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(139,0,0,0.4) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 20% at 20% 80%, rgba(255,68,0,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 20% at 80% 90%, rgba(255,68,0,0.1) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:1rem 2rem;
+  background:rgba(10,0,0,0.85);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Bangers',cursive;
+  font-size:1.5rem;
+  letter-spacing:0.1em;
+  color:var(--red);
+  text-decoration:none;
+}
+.nav-links{
+  display:flex;
+  gap:2rem;
+  list-style:none;
+}
+.nav-links a{
+  font-size:0.85rem;
+  font-weight:600;
+  letter-spacing:0.08em;
+  color:var(--muted);
+  text-decoration:none;
+  text-transform:uppercase;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--red)}
+.nav-buy{
+  background:var(--red);
+  color:#fff !important;
+  padding:0.5rem 1.25rem;
+  border-radius:4px;
+  transition:background 0.2s !important;
+}
+.nav-buy:hover{background:var(--dark-red) !important;color:#fff !important}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:8rem 1.5rem 4rem;
+  position:relative;
+  z-index:1;
+}
+.hero-img-wrap{
+  position:relative;
+  margin-bottom:2rem;
+}
+.hero-img{
+  width:280px;
+  height:auto;
+  border-radius:12px;
+  filter:drop-shadow(0 0 40px rgba(204,17,17,0.7)) drop-shadow(0 0 80px rgba(255,68,0,0.3));
+  animation:float-evil 3s ease-in-out infinite;
+}
+@keyframes float-evil{
+  0%,100%{transform:translateY(0) rotate(-1deg)}
+  50%{transform:translateY(-14px) rotate(1deg)}
+}
+.fire-ring{
+  position:absolute;
+  inset:-20px;
+  border-radius:50%;
+  border:2px solid rgba(255,68,0,0.3);
+  animation:spin-slow 12s linear infinite;
+}
+.fire-ring::after{
+  content:'';
+  position:absolute;
+  inset:-4px;
+  border-radius:50%;
+  border:1px dashed rgba(204,17,17,0.2);
+}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+
+.hero-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(3.5rem,12vw,7rem);
+  letter-spacing:0.06em;
+  line-height:0.9;
+  color:#fff;
+  text-shadow:
+    0 0 30px rgba(204,17,17,0.8),
+    0 0 60px rgba(204,17,17,0.4),
+    4px 4px 0 var(--dark-red);
+  margin-bottom:0.5rem;
+}
+.hero-title span{color:var(--red)}
+.hero-sub{
+  font-family:'Bangers',cursive;
+  font-size:clamp(1rem,3vw,1.5rem);
+  letter-spacing:0.15em;
+  color:var(--orange);
+  margin-bottom:1.5rem;
+  text-transform:uppercase;
+}
+.hero-tagline{
+  font-size:clamp(1rem,2.5vw,1.2rem);
+  color:var(--muted);
+  max-width:480px;
+  margin:0 auto 2.5rem;
+  line-height:1.7;
+}
+.hero-tagline em{color:var(--red);font-style:normal;font-weight:700}
+
+/* ── BUTTONS ── */
+.btns{display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem}
+.btn{
+  padding:0.85rem 2rem;
+  font-family:'Inter',sans-serif;
+  font-size:0.82rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-decoration:none;
+  cursor:pointer;
+  border:none;
+  border-radius:6px;
+  transition:transform 0.15s,box-shadow 0.15s;
+  display:inline-flex;
+  align-items:center;
+  gap:0.4rem;
+  text-transform:uppercase;
+}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--red),var(--dark-red));
+  color:#fff;
+  box-shadow:0 4px 20px rgba(204,17,17,0.5);
+}
+.btn-primary:hover{box-shadow:0 6px 30px rgba(204,17,17,0.7)}
+.btn-tg{background:#229ED9;color:#fff}
+.btn-dark{background:var(--card);color:var(--text);border:1px solid var(--border)}
+
+/* ── TICKER TAPE ── */
+.tape-wrap{
+  background:var(--red);
+  overflow:hidden;
+  padding:0.65rem 0;
+  border-top:2px solid var(--dark-red);
+  border-bottom:2px solid var(--dark-red);
+  position:relative;
+  z-index:1;
+}
+.tape{
+  display:flex;
+  white-space:nowrap;
+  animation:scroll-tape 18s linear infinite;
+}
+@keyframes scroll-tape{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tape-item{
+  font-family:'Bangers',cursive;
+  font-size:0.9rem;
+  color:#fff;
+  letter-spacing:0.12em;
+  padding:0 2.5rem;
+}
+.tape-sep{color:rgba(255,255,255,0.4);margin:0 0.5rem}
+
+/* ── SECTIONS ── */
+.section{
+  padding:6rem 1.5rem;
+  max-width:960px;
+  margin:0 auto;
+  position:relative;
+  z-index:1;
+}
+.section-full{
+  padding:6rem 1.5rem;
+  position:relative;
+  z-index:1;
+}
+.section-inner{max-width:960px;margin:0 auto}
+.sec-eyebrow{
+  font-size:0.7rem;
+  letter-spacing:0.25em;
+  color:var(--red);
+  text-transform:uppercase;
+  margin-bottom:0.75rem;
+  font-weight:600;
+}
+.sec-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(2rem,5vw,3rem);
+  letter-spacing:0.06em;
+  color:#fff;
+  margin-bottom:1.5rem;
+  text-shadow:0 0 20px rgba(204,17,17,0.4);
+}
+.sec-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:0;
+}
+
+/* ── ABOUT SECTION ── */
+.about-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3rem;
+  align-items:center;
+}
+@media(max-width:700px){.about-layout{grid-template-columns:1fr}}
+.about-img{
+  width:100%;
+  max-width:320px;
+  margin:0 auto;
+  border-radius:12px;
+  filter:drop-shadow(0 0 30px rgba(204,17,17,0.5));
+  display:block;
+}
+.about-text p{
+  font-size:1rem;
+  color:var(--muted);
+  line-height:1.9;
+  margin-bottom:1rem;
+}
+.about-text p strong{color:var(--red);font-weight:700}
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  border:1px solid var(--border);
+  margin-top:2rem;
+  border-radius:8px;
+  overflow:hidden;
+}
+.stat{
+  padding:1.25rem;
+  text-align:center;
+  border-right:1px solid var(--border);
+  background:var(--card);
+}
+.stat:last-child{border-right:none}
+.stat-val{
+  font-family:'Bangers',cursive;
+  font-size:1.8rem;
+  color:var(--red);
+  letter-spacing:0.05em;
+}
+.stat-lbl{font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:0.2rem}
+
+/* ── WHY CARDS ── */
+.why-bg{background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1.5rem;
+  margin-top:2rem;
+}
+.why-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:2rem;
+  transition:border-color 0.2s,transform 0.2s;
+  position:relative;
+  overflow:hidden;
+}
+.why-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--red),var(--orange));
+}
+.why-card:hover{border-color:var(--red);transform:translateY(-4px)}
+.why-icon{font-size:2rem;margin-bottom:1rem}
+.why-card h3{
+  font-family:'Bangers',cursive;
+  font-size:1.3rem;
+  letter-spacing:0.06em;
+  color:#fff;
+  margin-bottom:0.75rem;
+}
+.why-card p{font-size:0.85rem;color:var(--muted);line-height:1.8}
+
+/* ── CA BOX ── */
+.ca-section{text-align:center}
+.ca-wrap{
+  background:var(--card);
+  border:2px solid var(--border);
+  border-radius:12px;
+  padding:3rem 2rem;
+  max-width:700px;
+  margin:0 auto;
+  position:relative;
+}
+.ca-wrap::before{
+  content:'😈 CONTRACT ADDRESS 😈';
+  position:absolute;
+  top:-0.75rem;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--black);
+  padding:0 1rem;
+  font-size:0.65rem;
+  letter-spacing:0.2em;
+  color:var(--red);
+  white-space:nowrap;
+  font-weight:600;
+}
+.ca-val{
+  font-family:'Inter',monospace;
+  font-size:clamp(0.6rem,2vw,0.85rem);
+  color:var(--text);
+  background:rgba(204,17,17,0.1);
+  border:1px solid var(--border);
+  padding:1rem 1.5rem;
+  border-radius:8px;
+  word-break:break-all;
+  cursor:pointer;
+  transition:background 0.2s,border-color 0.2s;
+  letter-spacing:0.04em;
+  display:block;
+  margin:0 0 1rem;
+}
+.ca-val:hover{background:rgba(204,17,17,0.2);border-color:var(--red)}
+.ca-copied{display:none;color:var(--orange);font-size:0.8rem;margin-bottom:1rem;letter-spacing:0.08em}
+.ca-note{font-size:0.75rem;color:var(--muted);margin-top:1rem}
+
+/* ── BUY SECTION ── */
+.buy-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;
+  margin-top:2rem;
+}
+.buy-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:2rem;
+  text-align:center;
+  text-decoration:none;
+  transition:all 0.2s;
+  display:block;
+}
+.buy-card:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 8px 30px rgba(204,17,17,0.3)}
+.buy-platform{
+  font-family:'Bangers',cursive;
+  font-size:1.4rem;
+  letter-spacing:0.08em;
+  color:#fff;
+  margin-bottom:0.25rem;
+}
+.buy-action{font-size:0.75rem;color:var(--red);letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
+.buy-desc{font-size:0.78rem;color:var(--muted);margin-top:0.5rem}
+
+/* ── STEPS ── */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;
+  margin-top:2rem;
+}
+.step{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:1.75rem;
+}
+.step-num{
+  font-family:'Bangers',cursive;
+  font-size:3rem;
+  color:var(--border);
+  line-height:1;
+  margin-bottom:0.75rem;
+}
+.step h4{font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.5rem}
+.step p{font-size:0.78rem;color:var(--muted);line-height:1.8}
+
+/* ── TOKEN INFO ── */
+.token-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1rem;
+  margin-top:2rem;
+}
+.token-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:1.25rem;
+  display:flex;
+  flex-direction:column;
+  gap:0.25rem;
+}
+.token-label{font-size:0.65rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase}
+.token-value{font-weight:700;color:#fff;font-size:0.95rem}
+.token-value.green{color:#22c55e}
+.token-value.red{color:var(--red)}
+
+/* ── COMMUNITY ── */
+.community-bg{
+  background:linear-gradient(180deg,var(--black),var(--dark));
+  border-top:1px solid var(--border);
+}
+.community-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;
+  margin-top:2rem;
+}
+.community-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:2rem;
+  text-align:center;
+  text-decoration:none;
+  transition:all 0.2s;
+  display:block;
+}
+.community-card:hover{border-color:var(--red);transform:translateY(-4px)}
+.comm-icon{font-size:2.5rem;display:block;margin-bottom:0.75rem}
+.comm-platform{
+  font-family:'Bangers',cursive;
+  font-size:1.2rem;
+  letter-spacing:0.08em;
+  color:#fff;
+  margin-bottom:0.25rem;
+}
+.comm-handle{font-size:0.78rem;color:var(--muted)}
+
+/* ── CTA BAND ── */
+.cta-band{
+  background:var(--red);
+  padding:4rem 1.5rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.cta-band::before{
+  content:'😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈😈';
+  position:absolute;
+  top:50%;left:0;right:0;
+  transform:translateY(-50%);
+  font-size:5rem;
+  opacity:0.05;
+  letter-spacing:0.5rem;
+  white-space:nowrap;
+}
+.cta-band h2{
+  font-family:'Bangers',cursive;
+  font-size:clamp(2rem,5vw,3.5rem);
+  color:#fff;
+  letter-spacing:0.06em;
+  margin-bottom:0.5rem;
+  position:relative;
+}
+.cta-band p{color:rgba(255,255,255,0.8);margin-bottom:2rem;position:relative}
+.cta-band .btn-primary{
+  background:#fff;
+  color:var(--red);
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  position:relative;
+}
+.cta-band .btn-primary:hover{background:#ffe0e0}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--dark);
+  border-top:1px solid var(--border);
+  padding:3rem 1.5rem;
+  text-align:center;
+}
+.footer-logo{
+  font-family:'Bangers',cursive;
+  font-size:2rem;
+  letter-spacing:0.1em;
+  color:var(--red);
+  margin-bottom:1rem;
+}
+.footer-links{
+  display:flex;
+  gap:2rem;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:1.5rem;
+}
+.footer-links a{
+  font-size:0.78rem;
+  color:var(--muted);
+  text-decoration:none;
+  letter-spacing:0.05em;
+  transition:color 0.2s;
+}
+.footer-links a:hover{color:var(--red)}
+.footer-note{
+  font-size:0.7rem;
+  color:var(--muted);
+  line-height:1.8;
+  max-width:600px;
+  margin:0 auto;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  nav{padding:1rem}
+  .nav-links{display:none}
+  .btns{flex-direction:column;align-items:center}
+  .btn{width:100%;max-width:280px;justify-content:center}
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">😈 $EVILTUNG</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#buy">Buy</a></li>
+    <li><a href="#community">Community</a></li>
+    <!-- ★ REPLACE href with your pump.fun coin URL after launch -->
+    <li><a href="https://pump.fun" target="_blank" rel="noopener" class="nav-buy">Buy Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img-wrap">
+    <div class="fire-ring"></div>
+    <!-- Make sure evil_tung.png is in the same folder as this file -->
+    <img src="evil_tung.png" alt="Evil Tung — devil version of Tung Tung Tung Sahur" class="hero-img"/>
+  </div>
+  <p class="hero-sub">😈 On Solana · pump.fun</p>
+  <h1 class="hero-title"><span>EVIL</span> TUNG</h1>
+  <p class="hero-tagline">
+    Tung Tung went to hell.<br>
+    He came back with a trident and <em>zero chill.</em><br>
+    The dark side of brainrot is here.
+  </p>
+  <div class="btns">
+    <!-- ★ REPLACE href with your pump.fun coin URL after launch -->
+    <a href="https://pump.fun" target="_blank" rel="noopener" class="btn btn-primary">😈 Buy on pump.fun</a>
+    <a href="https://t.me/+xQntNI3TD3w2YWVl" target="_blank" rel="noopener" class="btn btn-tg">✈ Telegram</a>
+    <a href="https://x.com/AlexRic90448145" target="_blank" rel="noopener" class="btn btn-dark">✕ Twitter / X</a>
+  </div>
+</section>
+
+<!-- TICKER TAPE -->
+<div class="tape-wrap">
+  <div class="tape">
+    <span class="tape-item">$EVILTUNG <span class="tape-sep">·</span> EVIL TUNG ON SOLANA</span>
+    <span class="tape-item">TUNG WENT TO HELL <span class="tape-sep">·</span> HE CAME BACK DIFFERENT</span>
+    <span class="tape-item">THE DARK SIDE OF BRAINROT <span class="tape-sep">·</span> PUMP.FUN</span>
+    <span class="tape-item">TRIPLE T HIT $6.65M <span class="tape-sep">·</span> EVIL TUNG GOES FURTHER</span>
+    <span class="tape-item">$EVILTUNG <span class="tape-sep">·</span> EVIL TUNG ON SOLANA</span>
+    <span class="tape-item">TUNG WENT TO HELL <span class="tape-sep">·</span> HE CAME BACK DIFFERENT</span>
+    <span class="tape-item">THE DARK SIDE OF BRAINROT <span class="tape-sep">·</span> PUMP.FUN</span>
+    <span class="tape-item">TRIPLE T HIT $6.65M <span class="tape-sep">·</span> EVIL TUNG GOES FURTHER</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="about-layout">
+    <div>
+      <img src="evil_tung.png" alt="Evil Tung mascot" class="about-img"/>
+    </div>
+    <div class="about-text">
+      <p class="sec-eyebrow">What is $EVILTUNG?</p>
+      <h2 class="sec-title">Tung Went to Hell. He Came Back Evil.</h2>
+      <p>Tung Tung Tung Sahur is <strong>the last brainrot character that actually stayed mainstream.</strong> Everyone knows him. The good Tung already did <strong>$6.65M ATH</strong> as TripleT.</p>
+      <p>But what happens when Tung goes to hell, picks up a trident, grows horns and wings, and comes back with <strong>absolutely zero chill?</strong> You get $EVILTUNG. The dark side of the same narrative. Same energy, darker lore, better memes.</p>
+      <p>No presale. No VC. No roadmap cope. Just <strong>pure degen brainrot energy</strong> on the fastest chain in crypto.</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-val">SOL</div><div class="stat-lbl">Chain</div></div>
+        <div class="stat"><div class="stat-val">0%</div><div class="stat-lbl">Tax</div></div>
+        <div class="stat"><div class="stat-val">∞</div><div class="stat-lbl">Memes</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- WHY -->
+<div class="why-bg section-full">
+  <div class="section-inner">
+    <div class="section" style="padding:0">
+      <p class="sec-eyebrow">Why $EVILTUNG?</p>
+      <h2 class="sec-title">The Dark Side Always Wins</h2>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">😈</div>
+          <h3>Proven Narrative</h3>
+          <p>Tung Tung Tung Sahur is the only brainrot character that stayed mainstream. The good version did millions. Evil Tung captures the same audience with darker energy.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🔥</div>
+          <h3>TikTok Fuel</h3>
+          <p>The Tung audio is everywhere. Every Evil Tung meme, every short clip, every raid is free marketing powered by one of the most viral sounds on the internet.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⚡</div>
+          <h3>Built on Solana</h3>
+          <p>Launched on pump.fun. Fast, cheap, and where all the degen action is. No L2 cope. No bridge nightmares. Just pure Solana speed.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">💀</div>
+          <h3>Community Owned</h3>
+          <p>No presale. No VC bags waiting to dump on you. Just a community of degens who found the evil side of brainrot and decided to ape together.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOKEN INFO + CA -->
+<section class="section ca-section" id="contract">
+  <p class="sec-eyebrow">Token Info</p>
+  <h2 class="sec-title">Contract Address</h2>
+
+  <div class="token-grid" style="margin-bottom:2.5rem">
+    <div class="token-item">
+      <span class="token-label">Name</span>
+      <span class="token-value">Evil Tung</span>
+    </div>
+    <div class="token-item">
+      <span class="token-label">Ticker</span>
+      <span class="token-value">$EVILTUNG</span>
+    </div>
+    <div class="token-item">
+      <span class="token-label">Chain</span>
+      <span class="token-value">Solana</span>
+    </div>
+    <div class="token-item">
+      <span class="token-label">Launched On</span>
+      <span class="token-value">pump.fun</span>
+    </div>
+    <div class="token-item">
+      <span class="token-label">Buy Tax</span>
+      <span class="token-value green">0%</span>
+    </div>
+    <div class="token-item">
+      <span class="token-label">Sell Tax</span>
+      <span class="token-value green">0%</span>
+    </div>
+  </div>
+
+  <div class="ca-wrap">
+    <!-- ★★★ REPLACE PASTE_CA_HERE WITH YOUR REAL CONTRACT ADDRESS ★★★ -->
+    <div class="ca-val" onclick="copyCA(this)" title="Click to copy">PASTE_CA_HERE</div>
+    <div class="ca-copied" id="copied-msg">✓ Copied to clipboard!</div>
+    <div class="btns" style="justify-content:center;margin-top:1rem">
+      <!-- ★ REPLACE href with your actual pump.fun coin URL -->
+      <a href="https://pump.fun" target="_blank" rel="noopener" class="btn btn-primary">😈 Buy $EVILTUNG</a>
+    </div>
+    <p class="ca-note">Always verify CA from official Telegram or X before buying. Never trust DMs.</p>
+  </div>
+</section>
+
+<div class="sec-divider"></div>
+
+<!-- HOW TO BUY -->
+<section class="section" id="buy">
+  <p class="sec-eyebrow">Get In</p>
+  <h2 class="sec-title">How to Buy</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4>Get a Solana Wallet</h4>
+      <p>Download Phantom or Solflare. Takes 2 minutes. Write your seed phrase somewhere offline — never digital.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4>Buy Some SOL</h4>
+      <p>Get SOL from Coinbase, Binance, or Kraken. Send it to your Phantom wallet address.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4>Go to pump.fun</h4>
+      <p>Paste the CA above into pump.fun. Double-check the contract address matches exactly before swapping.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h4>Ape In 😈</h4>
+      <p>Connect your wallet, pick your SOL amount, hit Buy. Welcome to the evil side of brainrot.</p>
+    </div>
+  </div>
+
+  <div class="buy-grid" style="margin-top:3rem">
+    <!-- ★ REPLACE ALL hrefs with your real pump.fun coin URL -->
+    <a href="https://pump.fun" target="_blank" rel="noopener" class="buy-card">
+      <div class="buy-platform">PumpSwap</div>
+      <div class="buy-action">Trade Now →</div>
+      <div class="buy-desc">Buy direct on pump.fun</div>
+    </a>
+    <a href="https://dexscreener.com" target="_blank" rel="noopener" class="buy-card">
+      <!-- ★ REPLACE with your DexScreener chart URL after launch -->
+      <div class="buy-platform">DexScreener</div>
+      <div class="buy-action">Live Charts →</div>
+      <div class="buy-desc">Track price & volume</div>
+    </a>
+    <a href="https://pump.fun" target="_blank" rel="noopener" class="buy-card">
+      <div class="buy-platform">Jupiter</div>
+      <div class="buy-action">Swap Now →</div>
+      <div class="buy-desc">Best price routing</div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>THE EVIL SIDE IS CALLING</h2>
+  <p>Tung went to hell. Don't get left behind on earth.</p>
+  <a href="https://pump.fun" target="_blank" rel="noopener" class="btn btn-primary">😈 Buy $EVILTUNG Now</a>
+</div>
+
+<!-- COMMUNITY -->
+<div class="community-bg section-full" id="community">
+  <div class="section-inner">
+    <div class="section" style="padding:4rem 0 0">
+      <p class="sec-eyebrow" style="text-align:center">Join the Army</p>
+      <h2 class="sec-title" style="text-align:center">Join the $EVILTUNG Army</h2>
+      <div class="community-grid">
+        <a href="https://t.me/+xQntNI3TD3w2YWVl" target="_blank" rel="noopener" class="community-card">
+          <span class="comm-icon">✈</span>
+          <div class="comm-platform">Telegram</div>
+          <div class="comm-handle">Join the trenches</div>
+        </a>
+        <a href="https://x.com/AlexRic90448145" target="_blank" rel="noopener" class="community-card">
+          <span class="comm-icon">✕</span>
+          <div class="comm-platform">Twitter / X</div>
+          <!-- ★ UPDATE handle to your new Evil Tung X account -->
+          <div class="comm-handle">@AlexRic90448145</div>
+        </a>
+        <a href="https://www.tiktok.com/@perthplaybook" target="_blank" rel="noopener" class="community-card">
+          <span class="comm-icon">♪</span>
+          <div class="comm-platform">TikTok</div>
+          <!-- ★ UPDATE handle to your new Evil Tung TikTok -->
+          <div class="comm-handle">@perthplaybook</div>
+        </a>
+        <a href="https://pump.fun" target="_blank" rel="noopener" class="community-card">
+          <!-- ★ REPLACE href with your pump.fun coin URL -->
+          <span class="comm-icon">😈</span>
+          <div class="comm-platform">pump.fun</div>
+          <div class="comm-handle">Buy $EVILTUNG</div>
+        </a>
+      </div>
+      <p style="text-align:center;margin-top:3rem;font-size:0.75rem;color:var(--muted);letter-spacing:0.08em">THE EVIL SIDE DOESN'T SLEEP. NOR DOES THE ARMY.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">😈 $EVILTUNG</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#buy">Buy</a>
+    <a href="https://t.me/+xQntNI3TD3w2YWVl" target="_blank" rel="noopener">Telegram</a>
+    <a href="https://x.com/AlexRic90448145" target="_blank" rel="noopener">Twitter / X</a>
+    <a href="https://www.tiktok.com/@perthplaybook" target="_blank" rel="noopener">TikTok</a>
+    <a href="https://pump.fun" target="_blank" rel="noopener">pump.fun</a>
+  </div>
+  <p class="footer-note">
+    $EVILTUNG is a meme token on Solana. Not financial advice. Do your own research.<br>
+    Do not invest more than you can afford to lose. For entertainment purposes only. 😈
+  </p>
+</footer>
+
+<script>
+function copyCA(el){
+  var ca=el.innerText.trim();
+  if(ca==='PASTE_CA_HERE'){
+    alert('CA not set yet — open index.html and replace PASTE_CA_HERE with your real contract address after launch!');
+    return;
+  }
+  navigator.clipboard.writeText(ca).then(function(){
+    var msg=document.getElementById('copied-msg');
+    msg.style.display='block';
+    setTimeout(function(){msg.style.display='none';},2000);
+  });
+}
+</script>
+</body>
+</html>
